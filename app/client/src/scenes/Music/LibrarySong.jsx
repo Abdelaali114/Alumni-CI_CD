@@ -36,7 +36,7 @@ const LibrarySong = ({
     >
       {/* Song Cover Image */}
       <img
-        src={`http://localhost:3001/covers/${song.cover}`}
+        src={`http://app-server-1:3001/covers/${song.cover}`}
         className="w-16 h-16 rounded-lg object-cover"
       />
 

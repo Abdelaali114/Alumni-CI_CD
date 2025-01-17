@@ -14,7 +14,7 @@ const JobList = () => {
  useEffect(() => {
  const fetchJobs = async () => {
  try {
- const response = await axios.get('http://localhost:3001/api/job-posts', {
+ const response = await axios.get('http://app-server-1:3001/api/job-posts', {
  headers: {
  Authorization: `Bearer ${token}`,
  },
@@ -97,7 +97,7 @@ const JobList = () => {
  <Avatar
  src={
  job.companyLogo
- ? `http://localhost:3001/${job.companyLogo.replace(/\\/g, '/')}`
+ ? `http://app-server-1:3001/${job.companyLogo.replace(/\\/g, '/')}`
  : '/default-logo.png'
  }
  alt={`${job.company || 'Company'} Logo`}

@@ -10,7 +10,7 @@ const RequestService = () => {
   useEffect(() => {
     const fetchServices = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/services");
+        const response = await axios.get("http://app-server-1:3001/services");
         console.log(response.data);
         setServices(Array.isArray(response.data) ? response.data : []);
       } catch (error) {

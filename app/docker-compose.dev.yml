@@ -10,9 +10,11 @@ services:
       - REACT_APP_PORT=5173
       - CHOKIDAR_USEPOLLING=true
     image: client
-    command: npm run dev
+    command: npm run dev -- --host 0.0.0.0
     restart: "no"
     stdin_open: true
+    ports:
+      - "5173:5173"
 
   server:
     build:
@@ -20,9 +22,9 @@ services:
       dockerfile: Dockerfile.server.dev
     image: server
     environment:
-      - MONGO_URI=$MONGO_URI
-      - PORT=$PORT
-      - NODE_ENV=$NODE_ENV
+      - MONGO_URL=mongodb://app-db-1:27017/Alumni
+      - PORT=3001
+      - NODE_ENV=production
     volumes:
       - ./server:/app/server
     restart: "no"
@@ -30,3 +32,8 @@ services:
   db:
     image: mongo:4.4
     restart: "no"
+
+
+
+
+

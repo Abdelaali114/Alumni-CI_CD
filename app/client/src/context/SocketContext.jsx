@@ -17,7 +17,7 @@ export const SocketContextProvider = ({ children }) => {
 
   useEffect(() => {
     if (user) {
-      const socket = io("http://localhost:3001", {
+      const socket = io("http://app-server-1:3001", {
         auth: {
           token: token,
         },

@@ -25,7 +25,7 @@ const PostService = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3001/services", {
+      const response = await axios.post("http://app-server-1:3001/services", {
         ...formData,
         provider: userId,
       });

@@ -22,7 +22,7 @@ docker-compose -f ../ops/docker-compose.ops.yml up -d
 
 # Build images for production frontend, backend and database
 docker-compose -f ../app/docker-compose.staging.yml build
-docker pull mongo
+docker pull mongo:4.4
 
 # Push images to registry
 docker image tag client localhost:5000/client_install

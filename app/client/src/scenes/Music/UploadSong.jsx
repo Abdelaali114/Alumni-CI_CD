@@ -33,7 +33,7 @@ const UploadSong = ({ uploadStatus, setUploadStatus, setSongs }) => {
     try {
       // Send the form data to the server
       const response = await axios.post(
-        "http://localhost:3001/api/upload",
+        "http://app-server-1:3001/api/upload",
         formData,
         {
           headers: { "Content-Type": "multipart/form-data" },

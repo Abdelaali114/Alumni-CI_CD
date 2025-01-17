@@ -24,7 +24,7 @@ const Changelang = ({ onClose, userId }) => {
  console
   const getFriends = async () => {
     const response = await fetch(
-      `http://localhost:3001/users/${userId}/friends`,
+      `http://app-server-1:3001/users/${userId}/friends`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
@@ -48,7 +48,7 @@ const Changelang = ({ onClose, userId }) => {
   }, [userId, token, dispatch]);
 
   const handleSearchPromo = async () => {
-    const URL = "http://localhost:3001/search/promo";
+    const URL = "http://app-server-1:3001/search/promo";
     try {
       setLoading(true);
       const response = await axios.post(URL, {

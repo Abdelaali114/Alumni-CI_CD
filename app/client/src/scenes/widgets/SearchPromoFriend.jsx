@@ -16,7 +16,7 @@ const SearchPromoFriend = ({ onClose }) => {
   const theme = useTheme();
 
   const handleSearchUser = async () => {
-    const URL = "http://localhost:3001/search/promo";
+    const URL = "http://app-server-1:3001/search/promo";
     try {
       setLoading(true);
       const response = await axios.post(URL, {

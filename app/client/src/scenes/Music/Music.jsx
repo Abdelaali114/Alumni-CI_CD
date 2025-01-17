@@ -56,7 +56,7 @@ function Music() {
   useEffect(() => {
     const fetchSongs = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/api/getSong");
+        const response = await axios.get("http://app-server-1:3001/api/getSong");
         setSongs(response.data);
         if (response.data.length > 0) {
           setCurrentSong(response.data[0]);
@@ -145,7 +145,7 @@ function Music() {
         onTimeUpdate={timeUpdateHandler}
         onLoadedMetadata={timeUpdateHandler}
         ref={audioRef}
-        src={`http://localhost:3001/songs/${currentSong.songFile}`}
+        src={`http://app-server-1:3001/songs/${currentSong.songFile}`}
         onEnded={songEndHandler}
       ></audio>
     </Box>
