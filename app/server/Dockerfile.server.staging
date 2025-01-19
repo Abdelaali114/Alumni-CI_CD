@@ -1,0 +1,31 @@
+FROM node:20-alpine as builder
+
+WORKDIR /app/server
+
+COPY package*.json ./
+
+
+# Install dependencies
+RUN npm install
+
+COPY . .
+
+# Final Image
+FROM node:20-alpine
+
+WORKDIR /app/server
+
+
+COPY --from=builder /app/server .
+
+# Environment variables
+ARG MONGO_URL
+ARG PORT
+ARG NODE_ENV
+ENV MONGO_URL=mongodb://db/Alumni
+ENV PORT=3001
+ENV NODE_ENV=production
+
+EXPOSE 3001
+
+CMD ["node", "index.js"]
