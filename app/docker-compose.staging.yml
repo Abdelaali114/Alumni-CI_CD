@@ -1,9 +1,9 @@
-#version: "3.8"
+version: "3.8"
 
 networks:
   default:
-     external:
-        name: ops_default  # Make sure the external network is named correctly
+    external:
+      name: ops_default  # Make sure the external network is named correctly
 
 services:
   client:
@@ -15,32 +15,33 @@ services:
       - "5173:80"
     stdin_open: true
     networks:
-      - default  # Keep the reference to the 'default' network here
+      - default  # Ensure the client is connected to the same network
 
   server:
     build:
       context: ./server
       dockerfile: Dockerfile.server.staging
       args:
-        MONGO_URI: mongodb://db:27017/Alumni
+        MONGO_URL: mongodb://db:27017/Alumni  # Use service name 'db' instead of 'app-db-1'
         PORT: 3001
         NODE_ENV: production
     image: localhost:5000/server:staging
     environment:
-      - MONGO_URI=mongodb://db:27017/Alumni
-      - PORT=4000
+      - MONGO_URL=mongodb://db:27017/Alumni  # Ensure no extra space before the URL
+      - PORT=3001
       - NODE_ENV=production
     command: node index.js
     depends_on:
-      - db
+      - db  # Ensure 'server' starts after 'db'
     networks:
-      - default  # Keep the reference to the 'default' network here
+      - default  # Ensure 'server' is connected to the same network as 'db'
+
   db:
     image: mongo:4.4
     volumes:
       - db_staging:/data/Alumni
     networks:
-      - default  # Keep the reference to the 'default' network here
+      - default  # Ensure 'db' is connected to the same network as 'server'
 
 volumes:
   db_staging:
