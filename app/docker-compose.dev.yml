@@ -5,6 +5,9 @@ services:
     depends_on:
       - server
     build: ./client
+    #this is better for you 
+      #context: ./client
+      #dockerfile: Dockerfile.client.dev
     ports:
       - 5173:5173
     environment:

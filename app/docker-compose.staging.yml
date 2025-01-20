@@ -1,10 +1,4 @@
 #version: "3.8"
-
-networks:
-  default:
-     external:
-        name: ops_default  # Make sure the external network is named correctly
-
 services:
   client:
     build:
@@ -13,35 +7,36 @@ services:
     image: localhost:5000/client:staging
     ports:
       - "5173:80"
-    stdin_open: true
     networks:
-      - default  # Keep the reference to the 'default' network here
+      - mern_network
+    environment:
+      REACT_APP_API_URL: http://server:3001
 
   server:
     build:
       context: ./server
       dockerfile: Dockerfile.server.staging
-      args:
-        MONGO_URL: mongodb://db:27017/Alumni
-        PORT: 3001
-        NODE_ENV: production
+    networks:
+      - mern_network
     image: localhost:5000/server:staging
     environment:
-      - MONGO_URI=mongodb://db:27017/Alumni
-      - PORT=3001
-      - NODE_ENV=production
+       MONGO_URL: mongodb://mongodb:27017/Alumni
+       PORT : 3001
+       NODE_ENV: production
     command: node index.js
     depends_on:
       - db
-    networks:
-      - default  # Keep the reference to the 'default' network here
+    
   db:
     image: mongo:4.4
+    ports:
+      - "27017:27017"
     volumes:
       - db_staging:/data/db
     networks:
-      - default  # Keep the reference to the 'default' network here
+      - mern_network  # Keep the reference to the 'default' network here
 
 volumes:
   db_staging:
+    driver: local
 
